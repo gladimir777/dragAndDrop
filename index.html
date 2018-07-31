@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    
+</body>
+<script>
+
+        function Img(){
+
+         let wraperObject=this;
+
+          this.originalObject=new Image();
+
+          this.finish=false;
+
+          this.onload=function(){};
+
+          this.originalObject.onload=function(){
+
+               wraperObject.finish=true; 
+               wraperObject.onload();
+
+              
+          };
+        }
+
+        //let img=new Img();
+        Img.prototype.set=function(property,value){
+            let originalObjectProp=['height','width','src'];
+            let wrapperObjectProp=['finish','onload'];
+
+            if(originalObjectProp.indexOf(property)!=-1){
+                this.originalObject[property]=value;
+            }
+            else if(wrapperObjectProp.indexOf(property)!=-1){
+                this[property]=value;
+            }
+
+        };
+
+        Img.prototype.get=function(property){
+            return typeof this[property]!='undefined'?this[property]:this.originalObject[property];
+        }
+        let myImg=new Img();
+        console.log('comp: '+myImg.get('finish'));
+        myImg.set('onload', function(){
+            console.log('complete: '+this.get('finish'));
+        });
+        myImg.set('src', './piscine.jpg');
+       console.log(myImg.get('height'));
+       console.log('complete: '+myImg.get('finish'));
+      // console.log('finish'+new Image().finish);
+
+     let func= (function (arg){
+          //console.log('my arg: '+arg);
+          return 'testing muy function 123';
+
+      })();
+      console.log(func);
+      //(func)('testing muy function 123');
+      
+    </script>
+</html>
