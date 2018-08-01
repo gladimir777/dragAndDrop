@@ -1,49 +1,54 @@
 (function() {
+  //alert("test");
   dndHandler = {
     draggablElement: null,
 
     applyDragEvent: function(element) {
       element.draggable = true;
-      draggablElement = this;
-      element.addEventListener("dragstart", function(e) {
-        e.preventDefault;
-        draggablElement = e.target;
-      });
+      dhandlerContext = this;
+      element.addEventListener(
+        "dragstart",
+        function(e) {
+          e.preventDefault;
+          dhandlerContext.draggablElement = e.target;
+        },
+        false
+      );
     },
 
     applyDropEvent: function(droper) {
-      droper.addEventListener(
-        "dragover",
-        function(e) {
-          e.preventDefault();
-          droper.className = "";
-        },
-        false
-      );
+      droper.addEventListener("dragover", function(e) {
+        e.preventDefault();
+        //this.className = "black";
+      });
 
-      droper.addEventListener(
-        "draleave",
-        function(e) {
-          e.preventDefault();
-          droper.className = "";
-        },
-        false
-      );
+      droper.addEventListener("draleave", function(e) {
+        e.preventDefault();
+        droper.className = "black";
+      });
 
-      droper.addEventListener(
-        "drop",
-        function(e) {
-          e.preventDefault();
-          let clonElement = dndHandler.draggablElement.cloneNode(true);
-          let dropeZone = e.target;
-          dropeZone.appendChild(clonElement);
+      droper.addEventListener("drop", function(e) {
+        e.preventDefault();
+        //alert(e.target);
+        let clonElement = dndHandler.draggablElement.cloneNode(true);
+        let dropeZone = e.target;
+        dropeZone.appendChild(clonElement);
+        dndHandler.draggablElement.parentNode.removeChild(
           dndHandler.draggablElement
-            .parentNode()
-            .removeChild(dndHandler.draggablElement);
-          dndHandler.applyDragEvent(clonElement);
-        },
-        false
-      );
+        );
+        dndHandler.applyDragEvent(clonElement);
+      });
     }
   };
+  const drager = document.querySelectorAll(".drager");
+  const droper = document.querySelectorAll(".droper");
+  console.log(droper.length);
+
+  for (let i = 0; i < drager.length; i++) {
+    dndHandler.applyDragEvent(drager[i]);
+  }
+
+  for (let i = 0; i < droper.length; i++) {
+    dndHandler.applyDropEvent(droper[i]);
+  }
 })();
