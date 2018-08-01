@@ -1,4 +1,17 @@
-body{
-    box-sizing: border-box;
-    
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.droper {
+  width: 45%;
+  height: 30vh;
+  border: 1px solid black;
+  display: inline-block;
+}
+
+.right {
+  margin-top: 0;
+  clear: both;
 }
