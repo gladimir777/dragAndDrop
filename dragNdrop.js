@@ -31,6 +31,14 @@
         e.preventDefault();
         //alert(e.target);
         let clonElement = dndHandler.draggablElement.cloneNode(true);
+        console.log(clonElement.classList);
+        let classArray = clonElement.classList;
+        if (classArray.contains("blue")) {
+          clonElement.classList.remove("blue");
+        } else {
+          clonElement.classList.add("blue");
+        }
+
         let dropeZone = e.target;
         dropeZone.appendChild(clonElement);
         dndHandler.draggablElement.parentNode.removeChild(

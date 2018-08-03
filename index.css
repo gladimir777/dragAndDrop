@@ -26,3 +26,10 @@ body {
 .black {
   background-color: black;
 }
+.blue {
+  background-color: blue;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  cursor: pointer;
+}
